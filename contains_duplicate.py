@@ -2,19 +2,18 @@
 """
 Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
 """
+from collections import defaultdict
 class Solution:
-    def containsDuplicate(self, nums: list[int]) -> bool:
+    def singleNumber(self, nums: list[int]) -> int:
         
-        nums_set = {}
+        nums_set = defaultdict(int)
 
         for i in nums:
 
-            if i in nums_set:
+            nums_set[i] += 1
 
-                return True
+        for i in nums_set:
 
-            else:
-                nums_set[i] = 1
-
-        return False
+            if nums_set[i] == 1:
+                return i 
         
