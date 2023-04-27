@@ -9,7 +9,10 @@ class Solution:
         s = list(s)
         
         letters_table = defaultdict(int)
-        
+        """
+        can also use :
+        count = collections.counter(s)
+        """
         # count all occurences of each letter
         for i in s:
             
@@ -20,6 +23,9 @@ class Solution:
         # return index of first number
         for idx, key in enumerate(s):
 
+            """
+            if count[key] == 1
+            """
             if letters_table[key] == 1:
 
                 return idx
