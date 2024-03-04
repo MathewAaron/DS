@@ -122,6 +122,59 @@ class Tree:
             if root.right :
                 print_queue.append(root.right)
 
+    def sum_of_tree(self,root):
+        """
+            if root is None; return 0
+
+            if root.left exists ; left = sum_of_tree(root.left)t else left = 0
+            if root.right exists ; right = sum_of_tree(root.right) else right = 0
+
+            return root.data + left + right
+        """
+
+        if not root :
+            return 0
+        left = self.sum_of_tree(root.left)
+        right = self.sum_of_tree(root.right)
+
+        return root.data + left + right
+    
+    def reverse_a_bst(self,root):
+        """
+            checks if root is None : returns 0
+            
+            i.e. left , right     =  end of elements right , end of elements left
+            root.left , root.right = reverse_a_bst(root.right), reverse_a_bst(root.left)
+        """
+        if root is None :
+            return 0
+
+        root.left, root.right = self.reverse_a_bst(root.right), self.reverse_a_bst(root.left)
+        return root
+
+    def find_max_element(self,root):
+
+        """
+            Checks if root is none : returns 0
+
+            returns max(root.data, find_max_element(root.left), find_max_element(root.right))
+        """
+        if root is None:
+            return 0
+        
+        return max(root.data,self.find_max_element(root.left),self.find_max_element(root.right))
+    
+    def search_element(self,root,value):
+        """
+        Checks if root is None: returns False
+
+        returns root.data == value or search_element(root.left) or search_element(root.right)
+        """
+        if root is None :
+            return False
+        return root.data == value or self.search_element(root.left,value) or self.search_element(root.right,value)
+
+
 if __name__ == "__main__":
 
     tree_obj = Tree()
@@ -151,3 +204,16 @@ if __name__ == "__main__":
     height = tree_obj.height_of_tree(root)
 
     print(f"Height of Tree is : {height}")
+    
+    sumTree = tree_obj.sum_of_tree(root)
+    print(f"sum of tree -->> {sumTree}")
+
+    # tree_obj.reverse_a_bst(root)
+    # tree_obj.traverse_inorder(root)
+    tree_obj.find_max_element(root)
+    print(f"Max element in the tree is : {tree_obj.find_max_element(root)}")
+
+    element_flag = tree_obj.search_element(root,12)
+    print(f"Element found : {element_flag}")
+    element_flag = tree_obj.search_element(root,50) # should print false
+    print(f"Element found : {element_flag}")
