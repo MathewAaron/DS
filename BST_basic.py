@@ -173,7 +173,42 @@ class Tree:
         if root is None :
             return False
         return root.data == value or self.search_element(root.left,value) or self.search_element(root.right,value)
+    
+    def is_tree_balanced(self,root):
+        """
+            base condition
+            if root is None:
+                return [True,-1]
+            recursively gets 
+                    left, right 
+            checks for balance
+            if left[0] and right[0]:
+                balanced = abs(left[1]-right[1]) <= 1
+            return [balanced, max(left,right)+1]
+        """
+        def dfs(root):
+            if root is None:
+                return [True,-1]
+            left, right = dfs(root.left),dfs(root.right)
+            balanced = abs(left[1] + right[1]) <= 1 and left[0] and right[0]
 
+            return [balanced,1+max(left[1],right[1])]
+        return dfs(root)[0]
+    
+    def max_path_sum(self,root):
+        max_sum = root.data
+
+        def dfs(root):
+            if root is None:
+                return 0
+            # dont add negative values
+            left, right = max(0,dfs(root.left)), max(0,dfs(root.right))
+            max_sum = max(max_sum,root.data + left + right)
+            return root.data + max(left , right)
+        
+        dfs(root)
+
+        return max_sum
 
 if __name__ == "__main__":
 
@@ -217,3 +252,6 @@ if __name__ == "__main__":
     print(f"Element found : {element_flag}")
     element_flag = tree_obj.search_element(root,50) # should print false
     print(f"Element found : {element_flag}")
+
+    balanced_flag = tree_obj.is_tree_balanced(root)
+    print(f"Is the tree balanced? {balanced_flag}")
