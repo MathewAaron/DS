@@ -199,6 +199,7 @@ class Tree:
         max_sum = root.data
 
         def dfs(root):
+            nonlocal max_sum
             if root is None:
                 return 0
             # dont add negative values
@@ -210,11 +211,48 @@ class Tree:
 
         return max_sum
 
+    def left_view(self,root):
+        if root is None:
+            return 0
+        q = []
+        q.append(root)
+
+        while q :
+            root = q.pop(0)
+            print(root.data)
+            if root.left :
+                q.append(root.left)
+            if (root.left is None) and (root.right) :
+                q.append(root.right)
+    
+    def right_view(self,root):
+
+        q = []
+        q.append(root)
+
+        while q :
+            root = q.pop(0)
+            print(root.data)
+            if root.right :
+                q.append(root.right)
+            if (root.right is None) and (root.left):
+                q.append(root.left)
+            
 if __name__ == "__main__":
 
     tree_obj = Tree()
     root = tree_obj.create_node(5)
-    
+    """
+                5
+              /    \    
+            2        7
+             \      /  \
+              4    6    10
+                       /   \
+                      8     12
+                           /
+                         11
+    """
     tree_obj.insert_element_rec(root,2)
     tree_obj.insert_element_rec(root,4)
     tree_obj.insert_element_rec(root,7)
@@ -222,6 +260,7 @@ if __name__ == "__main__":
     tree_obj.insert_element_rec(root,10)
     tree_obj.insert_element_rec(root,8)
     tree_obj.insert_element_rec(root,12)
+    tree_obj.insert_element_rec(root,11)
 
     print("inorder --->>> ")
     tree_obj.traverse_inorder(root)
@@ -255,3 +294,12 @@ if __name__ == "__main__":
 
     balanced_flag = tree_obj.is_tree_balanced(root)
     print(f"Is the tree balanced? {balanced_flag}")
+
+    max_path = tree_obj.max_path_sum(root)
+    print(f"Max path sum : {max_path}")
+
+    print("Left view ---->>>")
+    tree_obj.left_view(root)
+
+    print("right view --->>")
+    tree_obj.right_view(root)
