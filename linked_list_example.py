@@ -93,6 +93,28 @@ class LinkedList:
         curr_x.next = curr_y.next
         curr_y.next = temp 
 
+    def rotate_list(self,k):
+        # rotating by k elements :
+        """
+        
+        ."""
+        curr = self.head
+        count = 1
+        while (count < k) and (curr is not None):
+            
+            curr = curr.next
+            count += 1
+
+        knode = curr
+        print(f"knode data {knode.data}")
+        while curr.next is not None :
+            curr = curr.next
+
+        curr.next = self.head
+        self.head = knode.next
+        print(f"knode.next {knode.next.data}")
+        knode.next = None
+
 if __name__ == '__main__':
 
     LL = LinkedList()
@@ -103,7 +125,9 @@ if __name__ == '__main__':
     LL.push_begining(45)
     LL.push_begining(55)
     LL.push_begining(65)
-    LL.push_end(25)
+    LL.push_end(85)
     LL.print_list()
-    LL.swap_nodes(45,15)
+    LL.rotate_list(4)
     LL.print_list()
+    #LL.print_list()
+    # LL.swap_nodes(45,15)
